@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyFlow — Study Task Management System</title>
+  <meta name="description" content="StudyFlow is a web-based study task management system for university students: create, update, delete and track study tasks in one place.">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">SF</span>
+        <span>StudyFlow</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tasks.html">Study Tasks</a></li>
+          <li><a href="blog.html">Project Plan &amp; Blog</a></li>
+          <li><a href="ethics.html">Ethics &amp; Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <!-- ================= HERO + IMAGE CYCLER ================= -->
+      <section class="hero" aria-labelledby="app-title">
+        <h1 id="app-title">StudyFlow</h1>
+        <p class="lede">
+          One place for every assignment, quiz and revision block. StudyFlow keeps
+          all of your academic deadlines in a single, searchable list so that nothing
+          gets remembered twice — or forgotten once.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="tasks.html">Open my study tasks</a>
+          <a class="btn btn-ghost" href="#about-app">What it does</a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="gallery-title">
+        <h2 id="gallery-title">Study life, three ways</h2>
+        <p class="lede mb-0" style="margin-bottom:1rem">
+          Use the button below to cycle through the images.
+        </p>
+
+        <div class="viewer">
+          <div class="viewer-frame">
+            <img id="viewer-image"
+                 src="../assets/images/study-desk.svg"
+                 alt="Illustration of a study desk with an open textbook, a notebook and a cup of tea."
+                 width="1280" height="720">
+          </div>
+          <div class="viewer-bar">
+            <div>
+              <p class="viewer-caption" id="viewer-caption" aria-live="polite">
+                A desk that has been sat at for a long time.
+              </p>
+              <p class="viewer-count" id="viewer-count">Image 1 of 3</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:.9rem">
+              <div class="dots" id="viewer-dots" aria-hidden="true"></div>
+              <button class="btn btn-ghost btn-sm" id="viewer-next" type="button">
+                Next image →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT THE APP ================= -->
+      <section class="section" id="about-app" aria-labelledby="about-app-title">
+        <h2 id="about-app-title">About the app</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>What it is for</h3>
+            <p>
+              Students juggle assignments, studio preparation, quizzes and project
+              deadlines that often land in the same two weeks. Notes on paper and
+              ad-hoc spreadsheets work until the workload increases, and then they
+              quietly stop being updated.
+            </p>
+            <p class="mb-0">
+              StudyFlow replaces those informal methods with one page that holds every
+              task, its course, its due date and its notes — and shows how close each
+              deadline is.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>How it helps me organise study</h3>
+            <p>
+              Every task carries a due date, so the list can be sorted by urgency rather
+              than by when I happened to write it down. Overdue and due-soon items are
+              labelled, which removes the need to do date arithmetic in my head during
+              a busy week.
+            </p>
+            <p class="mb-0">
+              Because tasks are stored in the browser, the list survives a page reload
+              and is available the next morning without logging into another service.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2rem">Key features</h3>
+        <div class="grid-3">
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">＋</div>
+            <div>
+              <h3>Create tasks</h3>
+              <p>Title, course code and name, due date, description and free-text notes.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">✎</div>
+            <div>
+              <h3>Update in place</h3>
+              <p>The same form loads an existing task, so details can be edited without retyping.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">✕</div>
+            <div>
+              <h3>Delete safely</h3>
+              <p>A confirmation dialog stands between a mis-click and a lost deadline.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">▤</div>
+            <div>
+              <h3>One organised view</h3>
+              <p>All tasks in a table, sortable by due date, filterable by status.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">✓</div>
+            <div>
+              <h3>Validated input</h3>
+              <p>Empty required fields and impossible dates are rejected with a clear message.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">◷</div>
+            <div>
+              <h3>Live date and time</h3>
+              <p>The current date and time sit at the bottom of the task page, always current.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT ME ================= -->
+      <section class="section" aria-labelledby="about-me-title">
+        <h2 id="about-me-title">About me</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Jinghui Yang</h3>
+            <p>
+              I am a first-year student at the University of Adelaide, taking
+              <strong>INFO 1012 — Information Technology Systems</strong> this semester.
+              Most of what I know about the web I learned by breaking things and then
+              reading the console until it stopped complaining.
+            </p>
+            <p class="mb-0">
+              What interests me is how a system is actually put together: why a login
+              is safe or not, where the data really lives, and what happens when a
+              request fails halfway through. I like small tools that remove a daily
+              friction — StudyFlow came out of losing track of three due dates in the
+              same week.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>How I manage my study tasks</h3>
+            <ul class="mb-0">
+              <li>
+                <strong>One list, one place.</strong> Every assessment goes into StudyFlow
+                the day it is announced, including the ones that are weeks away.
+              </li>
+              <li>
+                <strong>Time-boxed blocks.</strong> I block 90-minute sessions in a paper
+                weekly planner and assign each block to a task from this list.
+              </li>
+              <li>
+                <strong>Two-week horizon.</strong> Each Monday I sort by due date and only
+                work from the first two weeks; anything further out is left alone.
+              </li>
+              <li>
+                <strong>Notes in the task.</strong> Studio preparation steps and reading
+                lists live in the task's notes field, so the detail is never in a
+                separate document.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>StudyFlow — Assessment 3.1, INFO 1012. Built with HTML, CSS and JavaScript.</p>
+      <p>Last loaded: <span id="clock">—</span></p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

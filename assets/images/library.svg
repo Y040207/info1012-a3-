@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Library shelves with a student carrying a stack of books">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2f7f4"/><stop offset="1" stop-color="#eaf0fd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg3)"/>
+  <!-- shelves -->
+  <g>
+    <rect x="60" y="80" width="620" height="560" rx="10" fill="#e3d3bf"/>
+    <rect x="80" y="100" width="580" height="150" fill="#f9f5ef"/>
+    <rect x="80" y="280" width="580" height="150" fill="#f9f5ef"/>
+    <rect x="80" y="460" width="580" height="150" fill="#f9f5ef"/>
+    <g>
+      <rect x="100" y="120" width="26" height="130" fill="#2f5fd0"/>
+      <rect x="132" y="140" width="22" height="110" fill="#c8763c"/>
+      <rect x="160" y="115" width="30" height="135" fill="#4f8f6b"/>
+      <rect x="196" y="150" width="20" height="100" fill="#8a5fb0"/>
+      <rect x="222" y="128" width="28" height="122" fill="#d14343"/>
+      <rect x="256" y="160" width="18" height="90" fill="#46586b"/>
+      <rect x="280" y="122" width="24" height="128" fill="#e0a94a"/>
+    </g>
+    <g>
+      <rect x="100" y="300" width="24" height="130" fill="#4f8f6b"/>
+      <rect x="130" y="320" width="28" height="110" fill="#2f5fd0"/>
+      <rect x="164" y="296" width="20" height="134" fill="#c8763c"/>
+      <rect x="190" y="330" width="26" height="100" fill="#8a5fb0"/>
+      <rect x="222" y="306" width="22" height="124" fill="#d14343"/>
+    </g>
+    <g>
+      <rect x="100" y="486" width="28" height="124" fill="#e0a94a"/>
+      <rect x="134" y="500" width="22" height="110" fill="#46586b"/>
+      <rect x="162" y="480" width="26" height="130" fill="#2f5fd0"/>
+      <rect x="194" y="510" width="18" height="100" fill="#4f8f6b"/>
+    </g>
+  </g>
+  <!-- student -->
+  <g transform="translate(800 250)">
+    <circle cx="120" cy="70" r="46" fill="#f0c9a8"/>
+    <path d="M74 62 q46 -46 92 0 q-10 -40 -46 -40 q-36 0 -46 40 Z" fill="#3b2f2a"/>
+    <path d="M74 320 q-24 -110 8 -170 q30 -30 76 0 q32 60 8 170 Z" fill="#2f5fd0"/>
+    <rect x="86" y="150" width="70" height="26" rx="10" fill="#24499f"/>
+    <rect x="70" y="330" width="46" height="120" rx="14" fill="#46586b"/>
+    <rect x="126" y="330" width="46" height="120" rx="14" fill="#3c4c5c"/>
+    <!-- stack of books -->
+    <g transform="translate(18 196)">
+      <rect x="0" y="40" width="150" height="24" rx="5" fill="#d14343"/>
+      <rect x="6" y="18" width="140" height="22" rx="5" fill="#4f8f6b"/>
+      <rect x="2" y="-4" width="146" height="22" rx="5" fill="#e0a94a"/>
+      <rect x="10" y="-26" width="130" height="22" rx="5" fill="#8a5fb0"/>
+    </g>
+    <!-- arms -->
+    <path d="M84 170 q-40 20 -46 50" stroke="#f0c9a8" stroke-width="22" fill="none" stroke-linecap="round"/>
+    <path d="M156 170 q40 20 40 50" stroke="#f0c9a8" stroke-width="22" fill="none" stroke-linecap="round"/>
+  </g>
+  <text x="60" y="690" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#7b8b9c">between classes, somewhere quiet</text>
+</svg>

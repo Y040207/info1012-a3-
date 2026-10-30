@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="A study desk with an open textbook, a notebook and a cup of tea">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef3fe"/><stop offset="1" stop-color="#f8fbff"/>
+    </linearGradient>
+    <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b48f"/><stop offset="1" stop-color="#c39a72"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#wall)"/>
+  <!-- window light -->
+  <rect x="860" y="70" width="300" height="300" rx="12" fill="#ffffff" opacity=".75"/>
+  <rect x="860" y="70" width="300" height="300" rx="12" fill="none" stroke="#cfdbea" stroke-width="6"/>
+  <line x1="1010" y1="70" x2="1010" y2="370" stroke="#cfdbea" stroke-width="6"/>
+  <line x1="860" y1="220" x2="1160" y2="220" stroke="#cfdbea" stroke-width="6"/>
+  <!-- desk -->
+  <rect x="0" y="470" width="1280" height="34" fill="url(#desk)"/>
+  <rect x="0" y="504" width="1280" height="216" fill="#b98b62"/>
+  <rect x="0" y="470" width="1280" height="8" fill="#e7c9a8"/>
+  <!-- open book -->
+  <g transform="translate(150 330)">
+    <path d="M0 40 L0 150 Q120 120 240 150 L240 40 Q120 12 0 40 Z" fill="#ffffff" stroke="#dbe3ee" stroke-width="3"/>
+    <path d="M240 40 L240 150 Q360 120 480 150 L480 40 Q360 12 240 40 Z" fill="#fbfdff" stroke="#dbe3ee" stroke-width="3"/>
+    <line x1="240" y1="40" x2="240" y2="150" stroke="#dbe3ee" stroke-width="3"/>
+    <g stroke="#c9d6e6" stroke-width="4" stroke-linecap="round">
+      <line x1="34" y1="66" x2="200" y2="60"/><line x1="34" y1="90" x2="200" y2="84"/>
+      <line x1="34" y1="114" x2="170" y2="108"/>
+      <line x1="280" y1="60" x2="446" y2="66"/><line x1="280" y1="84" x2="446" y2="90"/>
+      <line x1="280" y1="108" x2="410" y2="114"/>
+    </g>
+    <rect x="150" y="120" width="90" height="60" rx="6" fill="#eaf0fd" opacity=".9"/>
+  </g>
+  <!-- notebook -->
+  <g transform="translate(680 385)">
+    <rect x="0" y="0" width="210" height="140" rx="8" fill="#2f5fd0"/>
+    <rect x="0" y="0" width="210" height="140" rx="8" fill="none" stroke="#24499f" stroke-width="4"/>
+    <g stroke="#9db9f4" stroke-width="5" stroke-linecap="round">
+      <line x1="26" y1="36" x2="184" y2="36"/><line x1="26" y1="64" x2="184" y2="64"/>
+      <line x1="26" y1="92" x2="140" y2="92"/>
+    </g>
+    <rect x="150" y="-14" width="12" height="30" rx="6" fill="#c8763c"/>
+  </g>
+  <!-- mug -->
+  <g transform="translate(930 400)">
+    <path d="M0 10 h84 v90 a30 30 0 0 1 -30 30 h-24 a30 30 0 0 1 -30 -30 Z" fill="#ffffff" stroke="#dbe3ee" stroke-width="4"/>
+    <path d="M84 30 a26 26 0 0 1 0 52" fill="none" stroke="#dbe3ee" stroke-width="10"/>
+    <ellipse cx="42" cy="12" rx="42" ry="10" fill="#e8eef8"/>
+    <path d="M30 -14 q10 -18 0 -34 M58 -10 q10 -18 0 -34" stroke="#cfdbea" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+  </g>
+  <!-- lamp -->
+  <g transform="translate(60 250)">
+    <rect x="46" y="220" width="90" height="16" rx="8" fill="#46586b"/>
+    <rect x="86" y="70" width="10" height="152" fill="#7b8b9c"/>
+    <path d="M40 70 L142 70 L118 18 L64 18 Z" fill="#c8763c"/>
+    <circle cx="91" cy="86" r="9" fill="#f6d9a8"/>
+  </g>
+  <!-- plant -->
+  <g transform="translate(1140 400)">
+    <path d="M40 120 h60 l-8 70 h-44 Z" fill="#c8763c"/>
+    <path d="M70 120 C70 60 40 50 20 40 C60 40 74 70 70 120 Z" fill="#4f8f6b"/>
+    <path d="M70 120 C70 50 100 42 124 30 C86 34 66 70 70 120 Z" fill="#3f7a5a"/>
+  </g>
+  <text x="60" y="680" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#7b8b9c">a long afternoon of reading</text>
+</svg>
