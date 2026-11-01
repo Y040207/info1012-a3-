@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study tasks — StudyFlow</title>
+  <meta name="description" content="Create, update, delete and review every study task in one organised table.">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">SF</span>
+        <span>StudyFlow</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tasks.html">Study Tasks</a></li>
+          <li><a href="blog.html">Project Plan &amp; Blog</a></li>
+          <li><a href="ethics.html">Ethics &amp; Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <!-- ==================================================================
+           LOGIN GATE
+           The task manager stays hidden until the user authenticates.
+           The gate is rendered by default (visible in the HTML) so that the
+           page is protected even if JavaScript fails to run.
+           ================================================================== -->
+      <section id="gate" class="gate card" aria-labelledby="gate-title">
+        <h1 id="gate-title">Sign in</h1>
+        <p class="lede">
+          This page is restricted. Enter your StudyFlow credentials to manage your tasks.
+        </p>
+
+        <div class="alert alert-danger" id="gate-error" role="alert" hidden></div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" autocomplete="username"
+                   required aria-describedby="username-error">
+            <span class="error-text" id="username-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="current-password"
+                   required aria-describedby="password-error">
+            <span class="error-text" id="password-error"></span>
+          </div>
+
+          <button class="btn btn-primary" type="submit" style="width:100%">Sign in</button>
+        </form>
+
+        <p class="small muted" style="margin-top:1rem">
+          Demonstration system — credentials are documented in the project README.
+          Authentication here is client-side only; see the
+          <a href="ethics.html">ethics and privacy reflection</a> for why that
+          limits the protection it can offer.
+        </p>
+      </section>
+
+      <!-- ==================================================================
+           TASK MANAGER (hidden until signed in)
+           ================================================================== -->
+      <div id="app" hidden>
+
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.25rem">
+          <div>
+            <h1 style="margin-bottom:.15em">Study tasks</h1>
+            <p class="muted small mb-0" id="task-summary">—</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="logout">Sign out</button>
+        </div>
+
+        <div class="tasks-layout">
+
+          <!-- ---------- Form ---------- -->
+          <section class="card" aria-labelledby="form-title">
+            <h2 id="form-title">Add a study task</h2>
+
+            <div class="alert alert-ok" id="form-status" role="status" hidden></div>
+
+            <form id="task-form" novalidate>
+              <input type="hidden" id="task-id" value="">
+
+              <div class="field">
+                <label for="title">Task title <span class="hint">(required)</span></label>
+                <input type="text" id="title" name="title" maxlength="80"
+                       placeholder="e.g. Complete Assignment 3"
+                       required aria-describedby="title-error">
+                <span class="error-text" id="title-error"></span>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="course-code">Course code <span class="hint">(required)</span></label>
+                  <input type="text" id="course-code" name="courseCode" maxlength="12"
+                         placeholder="INFO1012" required aria-describedby="course-code-error">
+                  <span class="error-text" id="course-code-error"></span>
+                </div>
+
+                <div class="field">
+                  <label for="course-name">Course name <span class="hint">(required)</span></label>
+                  <input type="text" id="course-name" name="courseName" maxlength="60"
+                         placeholder="Information Technology Systems"
+                         required aria-describedby="course-name-error">
+                  <span class="error-text" id="course-name-error"></span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="due-date">Due date <span class="hint">(required, today or later)</span></label>
+                <input type="date" id="due-date" name="dueDate" required aria-describedby="due-date-error">
+                <span class="error-text" id="due-date-error"></span>
+              </div>
+
+              <div class="field">
+                <label for="description">Task description <span class="hint">(required)</span></label>
+                <textarea id="description" name="description" maxlength="400"
+                          placeholder="What exactly has to be done?"
+                          required aria-describedby="description-error"></textarea>
+                <span class="error-text" id="description-error"></span>
+              </div>
+
+              <div class="field">
+                <label for="notes">Additional notes <span class="hint">(optional)</span></label>
+                <textarea id="notes" name="notes" maxlength="400"
+                          placeholder="Links, word count, submission portal…"></textarea>
+              </div>
+
+              <div style="display:flex; gap:.6rem; flex-wrap:wrap">
+                <button class="btn btn-primary" type="submit" id="submit-btn">Add task</button>
+                <button class="btn btn-ghost" type="button" id="reset-btn">Clear form</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ---------- List ---------- -->
+          <section aria-labelledby="list-title">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap">
+              <h2 id="list-title" style="margin-bottom:.6em">All tasks</h2>
+            </div>
+
+            <div class="toolbar">
+              <label class="visually-hidden" for="search">Search tasks</label>
+              <input type="text" id="search" placeholder="Search title or course…">
+
+              <label class="visually-hidden" for="filter">Filter by status</label>
+              <select id="filter">
+                <option value="all">All statuses</option>
+                <option value="overdue">Overdue</option>
+                <option value="soon">Due soon</option>
+                <option value="upcoming">Upcoming</option>
+              </select>
+
+              <span class="spacer"></span>
+            </div>
+
+            <div class="table-wrap">
+              <table id="task-table">
+                <caption class="visually-hidden">
+                  Study tasks, ordered by due date. Each row has edit and delete actions.
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Task</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Due</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="task-body"></tbody>
+              </table>
+
+              <div class="empty" id="empty-state" hidden>
+                <strong>No tasks match this view.</strong>
+                Add a task on the left, or clear the search box.
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ====================================================================
+       Confirmation dialog for deletion.
+       A native <dialog> is used instead of window.confirm() so the dialog
+       can describe the task being deleted and can be styled consistently.
+       ==================================================================== -->
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog" style="padding:.4rem">
+      <h2 id="confirm-title" style="font-size:1.15rem">Delete this task?</h2>
+      <p id="confirm-text" class="small muted">This cannot be undone.</p>
+      <div style="display:flex; gap:.6rem; justify-content:flex-end; margin-top:1rem">
+        <button class="btn btn-ghost btn-sm" value="cancel">Cancel</button>
+        <button class="btn btn-danger btn-sm" value="confirm" id="confirm-delete">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>StudyFlow — Assessment 3.1, INFO 1012. Built with HTML, CSS and JavaScript.</p>
+      <p>Current date and time: <span id="clock">—</span></p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/tasks.js"></script>
+</body>
+</html>
