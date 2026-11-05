@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project plan &amp; troubleshooting blog — StudyFlow</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">SF</span>
+        <span>StudyFlow</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tasks.html">Study Tasks</a></li>
+          <li><a href="blog.html">Project Plan &amp; Blog</a></li>
+          <li><a href="ethics.html">Ethics &amp; Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="prose">
+
+        <h1>Project plan and troubleshooting blog</h1>
+        <p class="lede">
+          How StudyFlow was planned over three one-week sprints, which parts of the
+          Agile methodology were adopted and why, and two errors that were hit and
+          fixed along the way.
+        </p>
+
+        <!-- ============================================================
+             1. AGILE
+             ============================================================ -->
+        <h2>1. Why Agile, and which parts of it I used</h2>
+
+        <p>
+          The Agile Manifesto values <em>working software over comprehensive
+          documentation</em> and <em>responding to change over following a plan</em>
+          (Beck et al., 2001). For a three-week solo assignment that sounded like an
+          excuse to skip planning, so I read it the other way round: keep the plan
+          short, but make it something that can change without being rewritten.
+        </p>
+
+        <p>
+          Two constraints shaped the approach. First, the specification was fixed and
+          would not move, so there was no customer to negotiate scope with — the
+          "customer" was the marking rubric. Second, I was the only developer, which
+          removes the coordination overhead Agile is usually designed to absorb.
+          What remained useful were the parts about <strong>short iterations</strong>
+          and <strong>frequent, working checkpoints</strong>.
+        </p>
+
+        <p>Concretely, three aspects of Agile were adopted:</p>
+
+        <ul>
+          <li>
+            <strong>Timeboxed sprints with a shippable increment.</strong> Each week
+            ended with a version of the site that could be opened in a browser and
+            demonstrated, even if incomplete. Week 1 shipped the home page and the
+            shared stylesheet; week 2 shipped the task manager; week 3 shipped the
+            blog, the ethics page and the README. A page that renders badly but
+            renders is a better checkpoint than a perfect page that exists only in
+            a notebook.
+          </li>
+          <li>
+            <strong>Prioritised backlog, ordered by risk.</strong> The riskiest item
+            was not the HTML — it was date handling and validation, which I had never
+            written before. That went into sprint 2, early in the week, so that a
+            failure would still leave time to simplify the design. Cosmetic work
+            (image gallery styling, hover states) was deliberately last.
+          </li>
+          <li>
+            <strong>A retrospective at the end of each week.</strong> Ten minutes
+            with the site open, asking three questions: what works, what is fragile,
+            what will bite me next week. The first retrospective produced the
+            decision to store dates as ISO strings, which is what prevented a whole
+            class of bugs later (see error 1).
+          </li>
+        </ul>
+
+        <p>
+          Aspects I deliberately did <em>not</em> adopt: daily stand-ups (nothing to
+          synchronise with), story-point estimation (one person, one velocity — the
+          numbers would be decoration), and pair programming. Agile is a set of
+          practices to be chosen from, not a compliance checklist; the reason for
+          each choice above is that it removed a specific risk in this project.
+        </p>
+
+        <!-- ============================================================
+             2. SPRINT TABLE
+             ============================================================ -->
+        <h2>2. Three-week sprint plan</h2>
+
+        <p>
+          Each sprint is one week. The table records the phase, the work committed to
+          at the start of the week, and what was actually delivered.
+        </p>
+
+        <div class="table-wrap" style="margin-bottom:1.5rem">
+          <table class="sprint">
+            <thead>
+              <tr>
+                <th scope="col">Sprint / phase</th>
+                <th scope="col">Planned work</th>
+                <th scope="col">Delivered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sprint 1 — Planning</td>
+                <td>
+                  Read the specification, list every required feature as a checklist,
+                  sketch the four pages on paper, accept the GitHub Classroom
+                  assignment and clone the repository.
+                </td>
+                <td>
+                  Checklist of 18 requirements; paper wireframes; repository cloned
+                  and folder structure created (<code>html/</code>, <code>css/</code>,
+                  <code>js/</code>, <code>assets/</code>).
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 1 — Analysis</td>
+                <td>
+                  Decide the data model for a task and the storage mechanism; check
+                  what the browser can do without a server.
+                </td>
+                <td>
+                  Task object defined as <code>{id, title, courseCode, courseName,
+                  dueDate, description, notes}</code>; <code>localStorage</code>
+                  chosen, with the trade-offs written up on the ethics page.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 1 — Design</td>
+                <td>
+                  Build the shared stylesheet: colour tokens, type scale, navigation,
+                  card and table components.
+                </td>
+                <td>
+                  <code>styles.css</code> with design tokens; header/nav/footer
+                  markup reused by all four pages.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 1 — Implementation</td>
+                <td>Home page: heading, navigation, image cycler, About sections.</td>
+                <td>
+                  <code>index.html</code> and <code>main.js</code> complete; cycler
+                  works with three images and keyboard-reachable controls.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 1 — Testing</td>
+                <td>Check rendering at 360 px, 768 px and 1440 px widths.</td>
+                <td>
+                  Grid layout wraps correctly; one bug fixed (hero padding collapsing
+                  on narrow screens).
+                </td>
+              </tr>
+
+              <tr>
+                <td>Sprint 2 — Planning</td>
+                <td>
+                  Break the task page into: login gate, create, read, update, delete,
+                  validation, clock. Estimate in half-days.
+                </td>
+                <td>Seven sub-tasks ordered by risk; date handling scheduled first.</td>
+              </tr>
+              <tr>
+                <td>Sprint 2 — Analysis</td>
+                <td>
+                  Work out how to compare a due date with "today" reliably, and how
+                  the table should be rebuilt after every change.
+                </td>
+                <td>
+                  Decision: store and compare <code>YYYY-MM-DD</code> strings; re-render
+                  the whole table from the array after each mutation.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 2 — Design</td>
+                <td>Form layout, error message placement, status pills, delete dialog.</td>
+                <td>
+                  Two-column form on desktop, single column under 560 px; errors sit
+                  directly under their field and are tied to it with
+                  <code>aria-describedby</code>.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 2 — Implementation</td>
+                <td>Write <code>tasks.js</code>: storage, gate, validation, rendering.</td>
+                <td>
+                  Create / update / delete / list all working; search and status
+                  filter added as a usability extra.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 2 — Testing</td>
+                <td>Try to break the form: empty fields, past dates, 1-character titles.</td>
+                <td>
+                  Two real bugs found and fixed (errors 1 and 2 below), plus a
+                  duplicate-submit issue found by double-clicking the button.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Sprint 3 — Planning</td>
+                <td>Write the blog, the ethics reflection and the README; final QA.</td>
+                <td>Content plan per page, with the rubric open beside it.</td>
+              </tr>
+              <tr>
+                <td>Sprint 3 — Analysis</td>
+                <td>
+                  Check the ethics page against the Privacy by Design principles and
+                  the Australian Privacy Principles.
+                </td>
+                <td>
+                  Seven principles mapped to concrete features, including an honest
+                  list of what this implementation cannot protect.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 3 — Design</td>
+                <td>Long-form reading layout for the two written pages.</td>
+                <td>
+                  <code>.prose</code> measure capped at 74 characters; code blocks
+                  styled with a dark theme for legibility.
+                </td>
+              </tr>
+              <tr>
+                <td>Sprint 3 — Implementation</td>
+                <td>Write the three content pages and the README.</td>
+                <td>All four pages cross-linked; consistent navigation confirmed.</td>
+              </tr>
+              <tr>
+                <td>Sprint 3 — Testing &amp; maintenance</td>
+                <td>
+                  Full regression pass, screenshot capture, commit history tidy-up,
+                  submission.
+                </td>
+                <td>
+                  Checklist re-run end to end; README screenshots added; repository
+                  pushed and ZIP exported.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ============================================================
+             3. ERRORS
+             ============================================================ -->
+        <h2>3. Troubleshooting log</h2>
+
+        <p class="muted">
+          Two errors are documented below, both from sprint 2. For each one: when it
+          was found, what it looked like, the code that caused it, and how it was
+          resolved.
+        </p>
+
+        <!-- ---------------- ERROR 1 ---------------- -->
+        <article class="bug" style="margin-top:2rem">
+          <h3>Error 1 — A task due today was rejected as "in the past"</h3>
+
+          <p>
+            <strong>Date and time encountered:</strong> 8 November 2026, 09:14 (ACDT)
+          </p>
+
+          <p>
+            <strong>Symptom.</strong> Entering today's date in the due-date field
+            produced <em>The due date cannot be in the past</em> and the form refused
+            to submit. The same date was accepted after about 10:30 in the morning,
+            which was the clue: the behaviour depended on the time of day, not on the
+            date.
+          </p>
+
+          <figure>
+            <div class="shot-note">
+              <strong>What it looked like.</strong> Today's date typed into the field,
+              <em>Add task</em> pressed: the red message appears directly under the date
+              input, the form does not submit, and no row is added to the table.
+            </div>
+            <figcaption>Error state: a valid date flagged as being in the past.</figcaption>
+          </figure>
+
+          <p class="snippet-label">Code that caused the issue</p>
+<pre><code><span class="c">// validation.js (before)</span>
+<span class="k">function</span> validateDueDate(value) {
+  <span class="k">if</span> (value === <span class="s">''</span>) <span class="k">return</span> <span class="s">'A due date is required.'</span>;
+
+  <span class="k">var</span> due = <span class="k">new</span> Date(value);      <span class="c">// "2026-11-08"</span>
+  <span class="k">if</span> (due &lt; <span class="k">new</span> Date()) {   <span class="c">// now</span>
+    <span class="k">return</span> <span class="s">'The due date cannot be in the past.'</span>;
+  }
+  <span class="k">return</span> <span class="s">''</span>;
+}</code></pre>
+
+          <p>
+            <strong>Cause.</strong> A date-only string is parsed as
+            <em>UTC</em> midnight, not local midnight. In Adelaide (UTC+10:30 during
+            daylight saving) <code>"2026-11-08"</code> becomes 10:30 am local time.
+            At 9:14 am, "today" therefore evaluated to a moment <em>in the future</em>,
+            and the comparison <code>due &lt; now</code> was false for the wrong
+            reason — until the clock passed 10:30, at which point the same test
+            started passing. The obvious fix — comparing <code>Date</code> objects —
+            would still have been fragile, because a user in a negative UTC offset
+            would see the date shift backwards instead.
+          </p>
+
+          <p>
+            <strong>Date and time resolved:</strong> 8 November 2026, 10:02 (ACDT)
+          </p>
+
+          <figure>
+            <div class="shot-note">
+              <strong>After the fix.</strong> The same date submits on the first press:
+              the row appears in the table, sorted ahead of the later deadlines, and the
+              error message under the field is cleared as soon as the input changes.
+            </div>
+            <figcaption>Working state: the task saves and appears in the table.</figcaption>
+          </figure>
+
+          <p class="snippet-label">Corrected solution</p>
+<pre><code><span class="c">// Build a local calendar date as a sortable string.</span>
+<span class="k">function</span> isoLocal(date) {
+  <span class="k">var</span> y = date.getFullYear();
+  <span class="k">var</span> m = String(date.getMonth() + <span class="n">1</span>).padStart(<span class="n">2</span>, <span class="s">'0'</span>);
+  <span class="k">var</span> d = String(date.getDate()).padStart(<span class="n">2</span>, <span class="s">'0'</span>);
+  <span class="k">return</span> y + <span class="s">'-'</span> + m + <span class="s">'-'</span> + d;
+}
+
+<span class="k">function</span> validateDueDate(value) {
+  <span class="k">if</span> (value === <span class="s">''</span>) <span class="k">return</span> <span class="s">'A due date is required.'</span>;
+  <span class="k">if</span> (!/^\d{4}-\d{2}-\d{2}$/.test(value)) <span class="k">return</span> <span class="s">'Enter a date in the form YYYY-MM-DD.'</span>;
+
+  <span class="c">// String comparison of ISO dates is date-only and timezone-free.</span>
+  <span class="k">if</span> (value &lt; isoLocal(<span class="k">new</span> Date())) {
+    <span class="k">return</span> <span class="s">'The due date cannot be in the past.'</span>;
+  }
+  <span class="k">return</span> <span class="s">''</span>;
+}</code></pre>
+
+          <p>
+            <strong>How it was resolved.</strong> Every date in the application is now
+            stored as a <code>YYYY-MM-DD</code> string, and every comparison compares
+            two such strings. Because the format is fixed-width and big-endian,
+            lexicographic order equals chronological order, so no
+            <code>Date</code> object and no timezone is involved in the decision.
+            <code>Date</code> objects are created only for display and for the
+            "days remaining" calculation, and those are constructed with an explicit
+            <code>T00:00:00</code> suffix so they stay in local time.
+          </p>
+
+          <p>
+            <strong>Resources used.</strong> MDN's <em>Date.parse()</em> reference (it
+            documents that date-only forms are treated as UTC); ECMA-262 §21.4.3.2 on
+            the Date Time String Format; a Stack Overflow thread on "JavaScript date
+            is off by one day" that described the same symptom. The fix itself came
+            from the first sprint retrospective rule: prefer plain sortable strings
+            where a comparison does not need a clock.
+          </p>
+        </article>
+
+        <!-- ---------------- ERROR 2 ---------------- -->
+        <article class="bug">
+          <h3>Error 2 — Deleting several tasks in a row skipped one</h3>
+
+          <p>
+            <strong>Date and time encountered:</strong> 9 November 2026, 16:41 (ACDT)
+          </p>
+
+          <p>
+            <strong>Symptom.</strong> With four tasks in the table, clicking delete,
+            confirming, then deleting the next one, left a task behind and deleted a
+            different one than the dialog named. It only happened when two deletions
+            followed each other quickly without a page reload.
+          </p>
+
+          <figure>
+            <div class="shot-note">
+              <strong>What it looked like.</strong> Three tasks in the table. Deleting
+              the first one, then the new first one, left the confirmed task in place and
+              removed two others instead. Nothing in the console — the table simply showed
+              the wrong set of rows.
+            </div>
+            <figcaption>Wrong row removed after two consecutive deletions.</figcaption>
+          </figure>
+
+          <p class="snippet-label">Code that caused the issue</p>
+<pre><code><span class="c">// tasks.js (before)</span>
+<span class="k">function</span> deleteTask(id) {
+  tasks.forEach(<span class="k">function</span> (task, index) {
+    <span class="k">if</span> (task.id === id) {
+      tasks.splice(index, <span class="n">1</span>);   <span class="c">// mutates the array being iterated</span>
+    }
+  });
+  render();
+}</code></pre>
+
+          <p>
+            <strong>Cause.</strong> <code>splice()</code> mutates the array while
+            <code>forEach()</code> is walking it. Every element after the removed one
+            shifts down by one index, but the loop counter has already advanced, so
+            the element that moved into the vacated slot is skipped. With a single
+            deletion the skipped element is usually not the target, which is why the
+            bug looked intermittent. It was not a rendering problem at all — the data
+            itself was wrong — but the table redraw made it look like the view had
+            gone out of sync.
+          </p>
+
+          <p>
+            <strong>Date and time resolved:</strong> 9 November 2026, 17:05 (ACDT)
+          </p>
+
+          <figure>
+            <div class="shot-note">
+              <strong>After the fix.</strong> Three consecutive deletions, each one
+              removing exactly the row whose name was shown in the confirmation dialog.
+              The table ends empty and the summary line reads <em>0 tasks</em>.
+            </div>
+            <figcaption>Working state: each deletion removes exactly one row.</figcaption>
+          </figure>
+
+          <p class="snippet-label">Corrected solution</p>
+<pre><code><span class="c">// tasks.js (after) — build a new array instead of editing in place.</span>
+<span class="k">function</span> deleteTask(id) {
+  tasks = tasks.filter(<span class="k">function</span> (task) {
+    <span class="k">return</span> task.id !== id;
+  });
+  saveTasks();
+  render();
+}</code></pre>
+
+          <p>
+            <strong>How it was resolved.</strong> Deletion now produces a new array
+            containing every task that is not the target, which cannot skip an
+            element because nothing is being iterated while it changes. The same
+            pattern was applied to the update path: the table is always rebuilt from
+            the array (the single source of truth) rather than patched row by row, so
+            the data and the screen cannot disagree.
+          </p>
+
+          <p>
+            <strong>Resources used.</strong> MDN documentation for
+            <code>Array.prototype.filter()</code> and <code>Array.prototype.splice()</code>
+            (the latter notes that it changes the array in place); the MDN guide
+            "Array methods" section on avoiding mutation during iteration; and a
+            Stack Overflow answer describing the skipped-element symptom when
+            splicing inside <code>forEach</code>.
+          </p>
+        </article>
+
+        <!-- ============================================================
+             4. WHAT I WOULD DO DIFFERENTLY
+             ============================================================ -->
+        <h2>4. What I would do differently</h2>
+
+        <ul>
+          <li>
+            Write the validation rules before the interface. Both errors above were
+            logic errors, and both would have been caught by testing the functions
+            with a fixed set of inputs before wiring them to a form.
+          </li>
+          <li>
+            Keep a decision log from day one. The timezone fix came from a rule
+            recorded in a retrospective; the rules that were never written down were
+            the ones that had to be rediscovered.
+          </li>
+          <li>
+            Commit smaller. The history for sprint 2 has three commits where there
+            should have been fifteen, which made the second bug harder to bisect.
+          </li>
+        </ul>
+
+        <h2>References</h2>
+        <ul class="small">
+          <li>Beck, K. et al. (2001) <em>Manifesto for Agile Software Development</em>. Available at: https://agilemanifesto.org/ (accessed 7 November 2026).</li>
+          <li>Flewelling, P. (2018) <em>The Agile Developer's Handbook</em>. Birmingham: Packt Publishing.</li>
+          <li>MDN Web Docs (2026) <em>Date.parse()</em>. Available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse (accessed 8 November 2026).</li>
+          <li>MDN Web Docs (2026) <em>Array.prototype.splice()</em>. Available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice (accessed 9 November 2026).</li>
+        </ul>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>StudyFlow — Assessment 3.1, INFO 1012. Built with HTML, CSS and JavaScript.</p>
+      <p>Current date and time: <span id="clock">—</span></p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

